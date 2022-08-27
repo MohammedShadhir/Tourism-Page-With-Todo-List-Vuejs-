@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <link rel="stylesheet" href="style2.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="place.html">Places</a></li>
+        <li><a href="TodoList.html"class="active">Todo List</a></li>
+        <li><a href="contact_us.html">Contact Us</a></li>
+        <li><a href="about.html">About</a></li>
+    </ul>
+
+    <body>
+       
+        <div id="app" >
+            <h1>PLANE YOUR TRIP</h1>
+            <div v-if="isediting">
+
+                <input type="text" v-model="todo">
+                <input type="button" value="Update" @click="storetodo">
+    
+                </div>
+    
+                <div v-else>
+    
+                    <input type="text" v-model="todo">
+                    <input type="button" value="Add" @click="updatetodo">
+        
+                    </div>
+            <ol >
+                 <li v-for="todo in todos" style="float: none;" >{{ todo }}
+                    <button @click="edittodo(index, todo)">Edit</button>
+                    <button @click="deletetodo(index)">Delete</button>
+                
+                </li>
+            </ol>
+           
+        </div>
+        
+            <script>
+                   var app= new Vue({
+                       el:'#app',
+                       data:{
+                           
+                           isediting:false,
+                           selectedindex:null,
+                           todo:'',
+                           todos:['Kandy','Mawanella']
+                       },
+                       methods: {
+                        storetodo(){
+                     this.todos.push(this.todo)
+                     this.todo=''
+                 },
+
+                 edittodo(index, todo){
+                     this.todo=todo
+                     this.selectedindex=index
+                     this.isediting=true
+                 },
+
+                 updatetodo(){
+                    this.todos.splice(this.selectedindex, 1, this.todo)
+                    this.isediting=false
+                 },
+
+                 deletetodo(index){
+                     this.todos.splice(index,1)
+                           }
+                       }
+                   })
+            </script>
+            </div>
+            <img src="image\1m.jpg" alt="">
+    
+    </body>
+    </html>
